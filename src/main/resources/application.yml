@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: morse
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.200.186.103:3306/morse_test
+    username: morse_admin
+    password: morse12
