@@ -19,5 +19,5 @@ public class ChatRoom {
     private ChatContent chatContent;
 
     @OneToMany(mappedBy = "chatRoom")
-    private List<Study> study;
+    private List<ParticipantList> participantList;
 }
