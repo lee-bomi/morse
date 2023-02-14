@@ -17,6 +17,11 @@ public class MemberController {
         return "join";
     }
 
+    @PostMapping("/repeat") //회원가입 이메일 중복확인
+    public boolean repeat(String email) {
+        return memberService.repeat(email);
+    }
+
     @PostMapping("/register")
     public Member register(@RequestBody MemberInput input) {
         return memberService.register(input);

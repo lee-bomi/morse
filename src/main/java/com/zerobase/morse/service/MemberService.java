@@ -15,6 +15,20 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    /**
+     * 이메일 중복확인(중복확인 버튼 => ajax사용해야할듯...)
+     * @param email
+     * @return
+     */
+    public boolean repeat(String email) {
+        return memberRepository.existsByEmail(email);
+    }
+
+    /**
+     * 회원가입
+     * @param m
+     * @return
+     */
     public Member register(MemberInput m) {
 
         String encPw = "";
