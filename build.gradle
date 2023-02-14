@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.0.2'
+    id 'org.springframework.boot' version '2.5.4'
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -15,12 +15,13 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'mysql:mysql-connector-java'     //스프링버전변경으로 인한 의존성변경
     implementation 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' //타임리프
 //    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'       //타임리프의 layout을 적용하기위함
     implementation 'org.springframework.boot:spring-boot-starter-validation'    //자바 유효성검사
-    runtimeOnly 'com.mysql:mysql-connector-j'
+//    runtimeOnly 'com.mysql:mysql-connector-j'
     compileOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'

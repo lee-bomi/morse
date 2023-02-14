@@ -1,12 +1,23 @@
 package com.zerobase.morse.entity;
 
-import jakarta.persistence.*;
+import com.zerobase.morse.model.MemberInput;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class Member {
 
     @Id
@@ -35,6 +46,5 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Study> study;
-
 
 }

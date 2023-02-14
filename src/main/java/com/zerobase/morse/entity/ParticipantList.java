@@ -1,8 +1,5 @@
 package com.zerobase.morse.entity;
-
-import jakarta.persistence.*;
-
-import java.time.LocalDate;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

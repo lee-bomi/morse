@@ -1,6 +1,6 @@
 package com.zerobase.morse.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Keyword {
