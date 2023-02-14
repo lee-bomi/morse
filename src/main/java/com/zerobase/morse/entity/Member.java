@@ -1,9 +1,6 @@
 package com.zerobase.morse.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Table(name = "MEMBER")
 public class Member {
 
@@ -30,6 +28,8 @@ public class Member {
     private LocalDateTime regDt;
     @Column(name = "email_yn")
     private boolean emailYn;
+    @Column(name = "email_auth_key")
+    private String emailAuthKey;
     private boolean status;
     @Column(name = "report_count")
     private  int reportCount;

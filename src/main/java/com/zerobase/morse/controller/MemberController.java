@@ -26,4 +26,12 @@ public class MemberController {
     public Member register(@RequestBody MemberInput input) {
         return memberService.register(input);
     }
+
+    @GetMapping("/email-auth")
+    public String ReqEmailAuth(@RequestParam String uuid) {
+        Member member = memberService.checkAuthKey(uuid);
+        memberService.changeEmailYn(member);
+
+        return "이메일 인증완료";
+    }
 }

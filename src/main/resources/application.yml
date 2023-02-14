@@ -34,3 +34,14 @@ spring:
       enabled: true
     restart:
       enabled: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bomilee.dev@gmail.com
+    password: bmsygblljwjgnsaw
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
