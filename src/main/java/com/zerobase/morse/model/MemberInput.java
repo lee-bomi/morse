@@ -36,12 +36,14 @@ public class MemberInput {
     @Size(min=6,max=6)
     String birth;
 
-    @NotBlank(message="주민번호뒷자리중첫글자를입력해주세요")
+    @NotBlank(message="주민번호뒷자리중첫글자를입력해주세요(1-4 사이의 값)")
     @Size(min=1,max=1)
+    @Min(value = 1)
+    @Max(value = 4)
     int gender;
 
     @NotBlank(message="하이픈(-)을생략하여입력해주세요")
-    @Size(min=10,max=11)
+    @Size(min=8,max=12)
     String phone;
 
     @NotBlank(message="주소검색버튼을클릭해주세요")
