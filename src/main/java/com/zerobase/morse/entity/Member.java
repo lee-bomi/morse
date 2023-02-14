@@ -1,15 +1,12 @@
 package com.zerobase.morse.entity;
 
-import com.zerobase.morse.model.MemberInput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,7 +23,7 @@ public class Member {
     private String name;
     private String nickname;
     private char gender;
-    private Date birth;
+    private String birth;
     private String address;
     private String phone;
     @Column(name = "reg_dt")
