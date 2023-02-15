@@ -9,7 +9,7 @@ public class MorseApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(MorseApplication.class, args);
-        System.out.println("test from jaeseong");
+        System.out.println("fork test");
     }
 
 }
