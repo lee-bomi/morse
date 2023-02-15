@@ -4,9 +4,10 @@ import com.zerobase.morse.entity.Member;
 import com.zerobase.morse.model.MemberInput;
 import com.zerobase.morse.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class MemberController {
 
