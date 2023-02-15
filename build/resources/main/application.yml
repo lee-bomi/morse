@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: morse
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.200.186.103:3306/morse_test
+    username: morse_admin
+    password: morse12
+
+  sql:
+    init:
+      mode: always
+
+  thymeleaf:
+    enabled: true
+    prefix: classpath:templates/
+    suffix: .html
+    cache: false
+    check-template-location: true
+
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
