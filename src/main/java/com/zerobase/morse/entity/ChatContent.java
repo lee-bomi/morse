@@ -9,13 +9,10 @@ public class ChatContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "chat_no")
     private int chatNo;
-    @Column(name = "room_id")
     private int roomId;
     private String email;
     private String content;
-    @Column(name = "write_dt")
     private LocalDateTime writeDt;
 
     @ManyToOne
