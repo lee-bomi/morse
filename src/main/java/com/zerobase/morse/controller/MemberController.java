@@ -34,4 +34,9 @@ public class MemberController {
 
         return "이메일 인증완료";
     }
+
+    @RequestMapping("/login") //로그인 화면, 처리는 SecurityConfiguration에서 됨.
+    public String login(){
+        return "login";
+    }
 }
