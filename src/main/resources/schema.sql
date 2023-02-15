@@ -2,8 +2,8 @@
 SET foreign_key_checks=0;
 
 -- 사용자
-DROP TABLE IF EXISTS `MEMBER`;
-CREATE TABLE `MEMBER` (
+DROP TABLE IF EXISTS `member`;
+CREATE TABLE `member` (
                           `email`        VARCHAR(100) NOT NULL PRIMARY KEY COMMENT '이메일', -- 이메일
                           `password`     VARCHAR(255) NOT NULL COMMENT '비밀번호', -- 비밀번호
                           `name`         VARCHAR(30)  NOT NULL COMMENT '이름', -- 이름
@@ -14,6 +14,7 @@ CREATE TABLE `MEMBER` (
                           `phone`        VARCHAR(15)  NOT NULL COMMENT '휴대전화', -- 휴대전화
                           `reg_dt`       DATETIME     NOT NULL COMMENT '가입일', -- 가입일
                           `email_yn`     BIT(1)       NOT NULL COMMENT '이메일인증여부', -- 이메일인증여부
+                          `email_auth_key` VARCHAR(255) NOT NULL COMMENT '이메일인증키', --이메일인증키
                           `status`       BIT(1)       NOT NULL COMMENT '회원상태', -- 회원상태
                           `report_count` INT          NOT NULL COMMENT '신고누적수', -- 신고누적수
                           `sns_login`    VARCHAR(30)  NOT NULL COMMENT '간편로그인' -- 간편로그인
@@ -21,8 +22,8 @@ CREATE TABLE `MEMBER` (
     COMMENT '사용자';
 
 -- 스터디모임
-DROP TABLE IF EXISTS `STUDY`;
-CREATE TABLE `STUDY` (
+DROP TABLE IF EXISTS `study`;
+CREATE TABLE `study` (
                          `study_no`       INT          NOT NULL PRIMARY KEY COMMENT '스터디번호', -- 스터디번호
                          `email`          VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
                          `title`          VARCHAR(150) NOT NULL COMMENT '타이틀', -- 타이틀
@@ -40,8 +41,8 @@ CREATE TABLE `STUDY` (
     COMMENT '스터디모임';
 
 -- 신청자명단
-DROP TABLE IF EXISTS `APPLICANT_LIST`;
-CREATE TABLE `APPLICANT_LIST` (
+DROP TABLE IF EXISTS `applicant_list`;
+CREATE TABLE `applicant_list` (
                                   `apply_no`     INT          NOT NULL PRIMARY KEY COMMENT '신청번호', -- 신청번호
                                   `study_no`     INT          NOT NULL COMMENT '스터디번호', -- 스터디번호
                                   `email`        VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
@@ -53,8 +54,8 @@ CREATE TABLE `APPLICANT_LIST` (
 
 
 -- 키워드
-DROP TABLE IF EXISTS `KEYWORD`;
-CREATE TABLE `KEYWORD` (
+DROP TABLE IF EXISTS `keyword`;
+CREATE TABLE `keyword` (
                            `keyword_no`   INT         NOT NULL PRIMARY KEY COMMENT '키워드번호', -- 키워드번호
                            `study_no`     INT         NOT NULL COMMENT '스터디번호', -- 스터디번호
                            `category`     VARCHAR(50) NOT NULL COMMENT '대분류', -- 대분류
@@ -65,8 +66,8 @@ CREATE TABLE `KEYWORD` (
 
 
 -- 채팅_참가자
-DROP TABLE IF EXISTS `CHAT_PARTICIPANT`;
-CREATE TABLE `CHAT_PARTICIPANT` (
+DROP TABLE IF EXISTS `chat_participant`;
+CREATE TABLE `chat_participant` (
                                     `participant_no` INT          NOT NULL PRIMARY KEY COMMENT '참여번호', -- 참여번호
                                     `room_id`        INT          NOT NULL COMMENT '방번호', -- 방번호
                                     `email`          VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
@@ -77,8 +78,8 @@ CREATE TABLE `CHAT_PARTICIPANT` (
 
 
 -- 채팅방
-DROP TABLE IF EXISTS `CHAT_ROOM`;
-CREATE TABLE `CHAT_ROOM` (
+DROP TABLE IF EXISTS `chat_room`;
+CREATE TABLE `chat_room` (
                              `room_id`  INT NOT NULL PRIMARY KEY COMMENT '방번호', -- 방번호
                              `study_no` INT NOT NULL COMMENT '스터디번호' -- 스터디번호
 )
@@ -86,8 +87,8 @@ CREATE TABLE `CHAT_ROOM` (
 
 
 -- 채팅내역
-DROP TABLE IF EXISTS `CHAT_CONTENT`;
-CREATE TABLE `CHAT_CONTENT` (
+DROP TABLE IF EXISTS `chat_content`;
+CREATE TABLE `chat_content` (
                                 `chat_no`  INT          NOT NULL PRIMARY KEY COMMENT '채팅번호', -- 채팅번호
                                 `room_id`  INT          NOT NULL COMMENT '방번호', -- 방번호
                                 `email`    VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
@@ -98,92 +99,92 @@ CREATE TABLE `CHAT_CONTENT` (
 
 
 -- 스터디모임
-ALTER TABLE `STUDY`
-    ADD CONSTRAINT `FK_MEMBER_TO_STUDY` -- 사용자 -> 스터디모임
+ALTER TABLE `study`
+    ADD CONSTRAINT `FK_member_TO_study` -- 사용자 -> 스터디모임
         FOREIGN KEY (
                      `email` -- 이메일
             )
-            REFERENCES `MEMBER` ( -- 사용자
+            REFERENCES `member` ( -- 사용자
                                  `email` -- 이메일
                 );
 
 -- 신청자명단
-ALTER TABLE `APPLICANT_LIST`
-    ADD CONSTRAINT `FK_MEMBER_TO_APPLICANT_LIST` -- 사용자 -> 신청자명단
+ALTER TABLE `applicant_list`
+    ADD CONSTRAINT `FK_member_TO_applicant_list` -- 사용자 -> 신청자명단
         FOREIGN KEY (
                      `email` -- 이메일
             )
-            REFERENCES `MEMBER` ( -- 사용자
+            REFERENCES `member` ( -- 사용자
                                  `email` -- 이메일
                 );
 
 -- 신청자명단
-ALTER TABLE `APPLICANT_LIST`
-    ADD CONSTRAINT `FK_STUDY_TO_APPLICANT_LIST` -- 스터디모임 -> 신청자명단
+ALTER TABLE `applicant_list`
+    ADD CONSTRAINT `FK_study_TO_applicant_list` -- 스터디모임 -> 신청자명단
         FOREIGN KEY (
                      `study_no` -- 스터디번호
             )
-            REFERENCES `STUDY` ( -- 스터디모임
+            REFERENCES `study` ( -- 스터디모임
                                 `study_no` -- 스터디번호
                 );
 
 -- 키워드
-ALTER TABLE `KEYWORD`
-    ADD CONSTRAINT `FK_STUDY_TO_KEYWORD` -- 스터디모임 -> 키워드
+ALTER TABLE `keyword`
+    ADD CONSTRAINT `FK_study_TO_keyword` -- 스터디모임 -> 키워드
         FOREIGN KEY (
                      `study_no` -- 스터디번호
             )
-            REFERENCES `STUDY` ( -- 스터디모임
+            REFERENCES `study` ( -- 스터디모임
                                 `study_no` -- 스터디번호
                 );
 
 -- 채팅_참가자
-ALTER TABLE `CHAT_PARTICIPANT`
-    ADD CONSTRAINT `FK_MEMBER_TO_CHAT_PARTICIPANT` -- 사용자 -> 채팅_참가자
+ALTER TABLE `chat_participant`
+    ADD CONSTRAINT `FK_member_TO_chat_participant` -- 사용자 -> 채팅_참가자
         FOREIGN KEY (
                      `email` -- 이메일
             )
-            REFERENCES `MEMBER` ( -- 사용자
+            REFERENCES `member` ( -- 사용자
                                  `email` -- 이메일
                 );
 
 -- 채팅_참가자
-ALTER TABLE `CHAT_PARTICIPANT`
-    ADD CONSTRAINT `FK_CHAT_ROOM_TO_CHAT_PARTICIPANT` -- 채팅방 -> 채팅_참가자
+ALTER TABLE `chat_participant`
+    ADD CONSTRAINT `FK_chat_room_TO_chat_participant` -- 채팅방 -> 채팅_참가자
         FOREIGN KEY (
                      `room_id` -- 방번호
             )
-            REFERENCES `CHAT_ROOM` ( -- 채팅방
+            REFERENCES `chat_room` ( -- 채팅방
                                     `room_id` -- 방번호
                 );
 
 -- 채팅방
-ALTER TABLE `CHAT_ROOM`
-    ADD CONSTRAINT `FK_STUDY_TO_CHAT_ROOM` -- 스터디모임 -> 채팅방
+ALTER TABLE `chat_room`
+    ADD CONSTRAINT `FK_study_TO_chat_room` -- 스터디모임 -> 채팅방
         FOREIGN KEY (
                      `study_no` -- 스터디번호
             )
-            REFERENCES `STUDY` ( -- 스터디모임
+            REFERENCES `study` ( -- 스터디모임
                                 `study_no` -- 스터디번호
                 );
 
 -- 채팅내역
-ALTER TABLE `CHAT_CONTENT`
-    ADD CONSTRAINT `FK_CHAT_ROOM_TO_CHAT_CONTENT` -- 채팅방 -> 채팅내역
+ALTER TABLE `chat_content`
+    ADD CONSTRAINT `FK_chat_room_TO_chat_content` -- 채팅방 -> 채팅내역
         FOREIGN KEY (
                      `room_id` -- 방번호
             )
-            REFERENCES `CHAT_ROOM` ( -- 채팅방
+            REFERENCES `chat_room` ( -- 채팅방
                                     `room_id` -- 방번호
                 );
 
 -- 채팅내역
-ALTER TABLE `CHAT_CONTENT`
-    ADD CONSTRAINT `FK_MEMBER_TO_CHAT_CONTENT` -- 사용자 -> 채팅내역
+ALTER TABLE `chat_content`
+    ADD CONSTRAINT `FK_member_TO_chat_content` -- 사용자 -> 채팅내역
         FOREIGN KEY (
                      `email` -- 이메일
             )
-            REFERENCES `MEMBER` ( -- 사용자
+            REFERENCES `member` ( -- 사용자
                                  `email` -- 이메일
                 );
 
