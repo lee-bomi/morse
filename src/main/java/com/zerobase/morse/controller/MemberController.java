@@ -4,9 +4,10 @@ import com.zerobase.morse.entity.Member;
 import com.zerobase.morse.model.MemberInput;
 import com.zerobase.morse.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -33,5 +34,10 @@ public class MemberController {
         memberService.changeEmailYn(member);
 
         return "이메일 인증완료";
+    }
+
+    @RequestMapping("/login") //로그인 화면, 처리는 SecurityConfiguration에서 됨.
+    public String login(){
+        return "login";
     }
 }

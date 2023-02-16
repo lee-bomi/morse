@@ -1,10 +1,14 @@
 package com.zerobase.morse.entity;
 
+import java.util.Collection;
+import java.util.Collections;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Builder
@@ -12,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Member {
+public class Member implements UserDetails {
 
     @Id
     private String email;
@@ -42,4 +46,33 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Study> study;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

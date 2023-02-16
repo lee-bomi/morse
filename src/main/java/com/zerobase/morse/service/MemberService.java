@@ -4,8 +4,14 @@ import com.zerobase.morse.component.MailComponent;
 import com.zerobase.morse.entity.Member;
 import com.zerobase.morse.model.MemberInput;
 import com.zerobase.morse.repository.MemberRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,7 +19,9 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService implements UserDetailsService {
+
+    private final PasswordEncoder passwordEncoder;
 
     private final MemberRepository memberRepository;
     private final MailComponent mailComponent;
@@ -119,4 +127,27 @@ public class MemberService {
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Member> optionalMember = memberRepository.findById(username);
+        if(optionalMember.isEmpty()){
+            throw new UsernameNotFoundException("can't find "+username);
+        }
+
+        Member member = optionalMember.get();
+        if(!member.isEmailYn()){
+            //이메일 미인증 예외 처리 추후 수정
+            throw new RuntimeException("이메일 인증 후 로그인해 주세요.");
+        }
+
+        if(member.isStatus()){
+            //계정 정지 예외 처리 추후 수정
+            throw new RuntimeException("정지된 계정입니다. 고객센터에 문의해 주세요.");
+        }
+
+        //data.sql에 비밀번호 암호화 되지 않아서 로그인 성공을 위해 임시로 작성.
+        String password = passwordEncoder.encode(member.getPassword());
+
+        return new User(member.getEmail(), password, member.getAuthorities());
+    }
 }
