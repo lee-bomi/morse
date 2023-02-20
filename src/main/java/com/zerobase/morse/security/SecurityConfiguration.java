@@ -9,8 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -18,36 +17,34 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-    @Bean
-    MemberAuthenticationHandler memberAuthenticationHandler(){
-        return new MemberAuthenticationHandler();
-    }
+  private final JwtAuthenticationFilter authenticationFilter;
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception{
-        http
-                .httpBasic().disable()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/**/signup", "/**/signin").permitAll();
+  @Bean
+  MemberAuthenticationHandler memberAuthenticationHandler() {
+    return new MemberAuthenticationHandler();
+  }
 
-        http
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/loginPage")
-                .failureHandler(memberAuthenticationHandler())
-                .defaultSuccessUrl("/");
+  @Override
+  public void configure(HttpSecurity http) throws Exception {
+    http
+        .httpBasic().disable()
+        .csrf().disable()
+        .formLogin().disable()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .authorizeRequests()
+        .antMatchers("/", "/**/signup", "/**/signin").permitAll()
+        .and()
+        .authorizeRequests()
+        .antMatchers("/temp")
+        .authenticated()
+        .and()
+        .addFilterBefore(this.authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-    }
+  }
 
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 }
