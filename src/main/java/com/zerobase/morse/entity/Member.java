@@ -2,6 +2,7 @@ package com.zerobase.morse.entity;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class Member implements UserDetails {
     private String name;
     private String nickname;
     private char gender;
-    private String birth;
+    private Date birth;
     private String address;
     private String phone;
     private LocalDateTime regDt;

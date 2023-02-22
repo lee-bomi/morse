@@ -8,7 +8,10 @@ import com.zerobase.morse.model.LoginResponse;
 import com.zerobase.morse.model.MemberInput;
 import com.zerobase.morse.repository.BlackListRepository;
 import com.zerobase.morse.repository.MemberRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +51,7 @@ public class MemberService implements UserDetailsService {
    * @param m
    * @return
    */
-  public Member register(MemberInput m) {
+  public Member register(MemberInput m) throws ParseException {
 
     String encPw = "";
     if (m.getPassword().equals(m.getRepassword())) {            // 비밀번호가 일치할경우에만 암호화하여 저장
@@ -57,12 +60,9 @@ public class MemberService implements UserDetailsService {
       //예외처리
     }
 
-    String date = "";
-    if (m.getGender() == 1 || m.getGender() == 2) {
-      date = "19".concat(m.getBirth());
-    } else {
-      date = "20".concat(m.getBirth());
-    }
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    Date date = sdf.parse(m.getBirth());
+
 
     //일련번호 생성
     String uuid = UUID.randomUUID().toString();
