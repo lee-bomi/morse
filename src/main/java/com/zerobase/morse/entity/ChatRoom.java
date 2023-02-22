@@ -8,7 +8,7 @@ public class ChatRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int roomId;
+    private Long roomId;
     private int studyNo;
 
     @OneToMany(mappedBy = "chatRoom")

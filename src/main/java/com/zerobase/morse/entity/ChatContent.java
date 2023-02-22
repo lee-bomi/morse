@@ -9,7 +9,7 @@ public class ChatContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int chatNo;
+    private Long chatNo;
     private int roomId;
     private String email;
     private String content;
