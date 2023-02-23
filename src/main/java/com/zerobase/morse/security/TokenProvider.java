@@ -16,15 +16,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 @Component
 @RequiredArgsConstructor
 public class TokenProvider {
 
-  private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000; //1시간
-  private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 6; //6시간
+  private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60; //1시간
+  private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60; //6시간
   private final MemberService memberService;
   private final JwtTokenRepository jwtTokenRepository;
 
@@ -72,15 +71,12 @@ public class TokenProvider {
   public String getTokenFromCookies(HttpServletRequest request,String tokenName) {
     Cookie[] cookies = request.getCookies();
 
-    String token = "";
-    for (Cookie c : cookies) {
-      if (c.getName().equals(tokenName)) {
-        token = c.getValue();
+    if (cookies != null) { // 쿠키가 null 값이 아닌 경우에만 처리
+      for (Cookie c : cookies) {
+        if (c.getName().equals(tokenName)) {
+          return c.getValue();
+        }
       }
-    }
-
-    if (!ObjectUtils.isEmpty(token)) {
-      return token;
     }
 
     return null;
