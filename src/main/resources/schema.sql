@@ -97,6 +97,20 @@ CREATE TABLE `chat_content` (
 )
     COMMENT '채팅내역';
 
+-- 리프레시_토큰
+DROP TABLE IF EXISTS `jwt_token`;
+CREATE TABLE `jwt_token` (
+                                `email`         VARCHAR(100) NOT NULL PRIMARY KEY COMMENT '이메일', --이메일
+                                `refresh_token` VARCHAR(255) NOT NULL COMMENT '리프레시_토큰' --리프레시_토큰
+)
+    COMMENT '리프레시_토큰';
+
+-- 블랙리스트(로그아웃)
+DROP TABLE IF EXISTS `black_list`;
+CREATE TABLE `black_list`(
+                                `access_token` VARCHAR(255) NOT NULL PRIMARY KEY COMMENT '액세스_토큰' -- 액세스_토큰
+)
+    COMMENT '블랙리스트';
 
 -- 스터디모임
 ALTER TABLE `study`
@@ -187,5 +201,7 @@ ALTER TABLE `chat_content`
             REFERENCES `member` ( -- 사용자
                                  `email` -- 이메일
                 );
+
+
 
 SET foreign_key_checks=1;
