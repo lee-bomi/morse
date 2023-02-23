@@ -35,7 +35,9 @@
 					success : function(res){
             //로그인 성공 시 쿠키에 토큰을 저장하고 메인 화면으로 이동
 						if(res.result === true){
-              document.cookie = "jwt="+res.token+"; path=/";
+              document.cookie = "access_token="+res.accessToken+"; path=/";
+							document.cookie = "refresh_token="+res.refreshToken+"; path=/";
+
               location.href="/";
 						}else{
             //에러시 팝업창으로 실패를 알려줌.
