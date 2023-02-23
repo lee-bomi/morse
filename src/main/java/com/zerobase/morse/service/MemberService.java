@@ -1,10 +1,12 @@
 package com.zerobase.morse.service;
 
 import com.zerobase.morse.component.MailComponent;
+import com.zerobase.morse.entity.BlackList;
 import com.zerobase.morse.entity.Member;
 import com.zerobase.morse.model.LoginInput;
 import com.zerobase.morse.model.LoginResponse;
 import com.zerobase.morse.model.MemberInput;
+import com.zerobase.morse.repository.BlackListRepository;
 import com.zerobase.morse.repository.MemberRepository;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -26,6 +28,8 @@ public class MemberService implements UserDetailsService {
   private final PasswordEncoder passwordEncoder;
 
   private final MemberRepository memberRepository;
+
+  private final BlackListRepository blackListRepository;
   private final MailComponent mailComponent;
 
   /**
@@ -131,22 +135,29 @@ public class MemberService implements UserDetailsService {
     mailComponent.sendMail(email, subject, text);
   }
 
+
   public LoginResponse login(LoginInput parameter) {
     Member member = this.memberRepository.getById(parameter.getUsername());
     if (ObjectUtils.isEmpty(member) || !this.passwordEncoder.matches(parameter.getPassword(),
         "$2a$10$HpPHhzop7HjJVW9dYHncwuklRTc7AP.b1f.Rqz14lnim68uwqk0fm")) {
       return LoginResponse.builder()
-          .token("")
           .message("아이디 또는 비밀번호가 일치하지 않습니다.")
           .result(false)
           .build();
     }
 
     return LoginResponse.builder()
-        .token("")
         .message("로그인에 성공했습니다.")
         .result(true)
         .build();
+  }
+
+  public void logout(String token) {
+    this.blackListRepository.save(
+            BlackList.builder()
+                      .accessToken(token)
+                      .build()
+    );
   }
 
   @Override
