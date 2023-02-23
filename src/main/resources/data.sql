@@ -47,3 +47,8 @@ INSERT INTO chat_content
     VALUES
     (1, 1, 'park@naver.com', '안녕하세요 저 토익 공부하려고 신청했는데요.', now()),
     (2, 1, 'kim@naver.com', '현재 토익 점수가 어떻게 되시나요?', now());
+
+INSERT INTO jwt_token
+    (email,refresh_token)
+    VALUES
+    ('kim@naver.com',"");
