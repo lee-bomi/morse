@@ -27,7 +27,9 @@ CREATE TABLE `study` (
                          `study_no`       INT          NOT NULL PRIMARY KEY COMMENT '스터디번호', -- 스터디번호
                          `email`          VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
                          `title`          VARCHAR(150) NOT NULL COMMENT '타이틀', -- 타이틀
-                         `purpose`        VARCHAR(30)  NOT NULL COMMENT '목적', -- 목적
+                         `category`       VARCHAR(30)  NOT NULL COMMENT '대분류', -- 대분류
+                         `sub_category`   VARCHAR(30)  NOT NULL COMMENT '중분류', -- 중분류
+                         `keyword`        VARCHAR(50)  NOT NULL COMMENT '소분류', -- 소분류
                          `description`    VARCHAR(255) NOT NULL COMMENT '설명', -- 설명
                          `status`         BIT(1)       NOT NULL COMMENT '모집상태', -- 모집상태
                          `cancel_status`  BIT(1)       NOT NULL COMMENT '취소상태', -- 취소상태
@@ -35,8 +37,7 @@ CREATE TABLE `study` (
                          `edit_dt`        DATETIME     NOT NULL COMMENT '수정일', -- 수정일
                          `due_dt`         DATETIME     NOT NULL COMMENT '만기일', -- 만기일
                          `applicant_nums` INT          NOT NULL COMMENT '신청자수', -- 신청자수
-                         `num_people`     INT          NOT NULL COMMENT '모집인원수', -- 모집인원수
-                         `category`       VARCHAR(50)  NOT NULL COMMENT '분류' -- 분류
+                         `num_people`     INT          NOT NULL COMMENT '모집인원수' -- 모집인원수
 )
     COMMENT '스터디모임';
 
