@@ -34,10 +34,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        .antMatchers("/", "/login","/**/signup", "/**/signin").permitAll()
+        .antMatchers("/", "/register","/login","/**/signup", "/**/signin").permitAll()
         .and()
         .authorizeRequests()
-        .antMatchers("/temp")
+        .antMatchers("/temp","/chat","/studylist","/inquiry")
         .authenticated()
         .and()
         .addFilterBefore(this.authenticationFilter, UsernamePasswordAuthenticationFilter.class);
