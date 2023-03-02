@@ -19,15 +19,15 @@ public class ApplicantList {
     @JoinColumn(name = "studyNo")
     private Study studyNo;
 
-    private String applyStatus;
-    private LocalDateTime applyDt;
-
     @ManyToOne
     @JoinColumn(name = "email")
     private Member member;
 
-    //@ManyToOne
-    //@JoinColumn(name = "roomId")
-    //private ChatRoom chatRoom;
+    @ManyToOne
+    @JoinColumn(name = "roomId")
+    private ChatRoom chatRoom;
+
+    private String applyStatus;
+    private LocalDateTime applyDt;
 
 }

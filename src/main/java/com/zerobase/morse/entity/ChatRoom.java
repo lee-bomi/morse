@@ -27,6 +27,6 @@ public class ChatRoom {
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatParticipant> chatParticipant;
 
-    //@OneToMany(mappedBy = "chatRoom")
-    //private List<ApplicantList> participantList;
+    @OneToMany(mappedBy = "chatRoom")
+    private List<ApplicantList> participantList;
 }
