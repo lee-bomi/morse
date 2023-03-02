@@ -1,14 +1,12 @@
 package com.zerobase.morse.repository;
 
 import com.zerobase.morse.entity.Member;
+import com.zerobase.morse.entity.Study;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, String> {
+public interface StudyRepository extends JpaRepository<Study, Long> {
 
-    boolean existsByEmail(String email);
-
-    Member findByEmailAuthKey(String uuid);
-    Member findByEmail(String email);
+	Member findByEmail(String email);
 }

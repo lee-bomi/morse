@@ -24,7 +24,7 @@ CREATE TABLE `member` (
 -- 스터디모임
 DROP TABLE IF EXISTS `study`;
 CREATE TABLE `study` (
-                         `study_no`       INT          NOT NULL PRIMARY KEY COMMENT '스터디번호', -- 스터디번호
+                         `study_no`       INT          NOT NULL PRIMARY KEY auto_increment COMMENT '스터디번호', -- 스터디번호
                          `email`          VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
                          `title`          VARCHAR(150) NOT NULL COMMENT '타이틀', -- 타이틀
                          `category`       VARCHAR(30)  NOT NULL COMMENT '대분류', -- 대분류
@@ -34,7 +34,7 @@ CREATE TABLE `study` (
                          `status`         BIT(1)       NOT NULL COMMENT '모집상태', -- 모집상태
                          `cancel_status`  BIT(1)       NOT NULL COMMENT '취소상태', -- 취소상태
                          `write_dt`       DATETIME     NOT NULL COMMENT '작성일', -- 작성일
-                         `edit_dt`        DATETIME     NOT NULL COMMENT '수정일', -- 수정일
+                         `edit_dt`        DATETIME              COMMENT '수정일', -- 수정일
                          `due_dt`         DATETIME     NOT NULL COMMENT '만기일', -- 만기일
                          `applicant_nums` INT          NOT NULL COMMENT '신청자수', -- 신청자수
                          `num_people`     INT          NOT NULL COMMENT '모집인원수' -- 모집인원수

@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -34,10 +35,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        .antMatchers("/", "/login","/**/signup", "/**/signin").permitAll()
+        .antMatchers("/", "/login","/studylist").permitAll()
         .and()
         .authorizeRequests()
-        .antMatchers("/temp")
+        .antMatchers("/temp", "/member/study/add")
         .authenticated()
         .and()
         .addFilterBefore(this.authenticationFilter, UsernamePasswordAuthenticationFilter.class);

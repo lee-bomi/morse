@@ -7,6 +7,7 @@ import com.zerobase.morse.model.LoginResponse;
 import com.zerobase.morse.model.MemberInput;
 import com.zerobase.morse.security.TokenProvider;
 import com.zerobase.morse.service.MemberService;
+import java.security.Principal;
 import java.text.ParseException;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -36,27 +37,17 @@ public class MemberController {
     return memberService.repeat(email);
   }
 
-    @PostMapping("/register")
-    public ResponseEntity<Member> register(@RequestBody MemberInput input) throws ParseException {
-        return ResponseEntity.ok().body(memberService.register(input));
-    }
   @PostMapping("/register")
-  public Member register(@RequestBody MemberInput input) {
-    return memberService.register(input);
+  public ResponseEntity<Member> register(@RequestBody MemberInput input) throws ParseException {
+      return ResponseEntity.ok().body(memberService.register(input));
   }
 
-    @GetMapping("/email-auth")
-    public ResponseEntity<String> ReqEmailAuth(@RequestParam String uuid) {
-        Member member = memberService.checkAuthKey(uuid);
-        memberService.changeEmailYn(member);
   @GetMapping("/email-auth")
-  public String ReqEmailAuth(@RequestParam String uuid) {
-    Member member = memberService.checkAuthKey(uuid);
-    memberService.changeEmailYn(member);
+  public ResponseEntity<String> ReqEmailAuth(@RequestParam String uuid) {
+      Member member = memberService.checkAuthKey(uuid);
+      memberService.changeEmailYn(member);
 
-        return ResponseEntity.ok().body("이메일인증완료");
-    }
-    return "이메일 인증완료";
+    return ResponseEntity.ok().body("이메일인증완료");
   }
 
   @GetMapping("/login")
@@ -100,4 +91,5 @@ public class MemberController {
   public String get() {
     return "temp";
   }
+
 }

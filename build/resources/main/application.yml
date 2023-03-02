@@ -5,6 +5,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  jwt:
+    secret: bW9yc2Vfc3R1ZHlfYmVzdF9hcHBsaWNhdGlvbgo= #morse_study_best_application를 암호화한 base64 기반 jwt 비밀키입니다.
+
+
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -28,3 +36,17 @@ spring:
       enabled: true
     restart:
       enabled: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bomilee.dev@gmail.com
+    password: bmsygblljwjgnsaw
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+
+#  main:
+#    allow-bean-definition-overriding: true
