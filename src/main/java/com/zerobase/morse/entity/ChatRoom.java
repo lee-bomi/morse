@@ -21,20 +21,12 @@ public class ChatRoom {
     @ManyToOne
     @JoinColumn(name = "studyNo")
     private Study studyNo;
-    //private int studyNo;
 
     private String roomType;
 
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatParticipant> chatParticipant;
 
-
-    //@ManyToOne
-    //private ChatContent chatContent;
-
-    @OneToMany(mappedBy = "chatRoom")
-    private List<ChatContent> chatContents;
-
-    @OneToMany(mappedBy = "chatRoom")
-    private List<ApplicantList> participantList;
+    //@OneToMany(mappedBy = "chatRoom")
+    //private List<ApplicantList> participantList;
 }
