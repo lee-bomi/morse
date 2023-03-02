@@ -160,6 +160,10 @@ public class MemberService implements UserDetailsService {
     );
   }
 
+  public Member getMember(String email){
+    return this.memberRepository.getById(email);
+  }
+
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Optional<Member> optionalMember = memberRepository.findById(username);
