@@ -44,8 +44,8 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member")
     private List<ChatContent> chatContents;
 
-    @OneToMany(mappedBy = "member")
-    private List<Study> study;
+//    @OneToMany(mappedBy = "member")
+//    private List<Study> study;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>스터디 공고 글 작성페이지</h1>
+<form action="/member/study/update" method="post" >
+  <input hidden="hidden" name="studyNo" th:value="${study.studyNo}">
+  <label for="title">
+    <p>타이틀 : <input type="text" id="title" name="title" th:value="${study.title}"></p>
+  </label>
+  <label for="category">
+    <p>category : <input type="text" id="category" name="category" th:value="${study.category}"></p>
+  </label>
+  <label for="subCategory">
+    <p>subCategory : <input type="text" id="subCategory" name="subCategory" th:value="${study.subCategory}"></p>
+  </label>
+  <label for="keyword">
+    <p>keyword : <input type="text" id="keyword" name="keyword" th:value="${study.keyword}"></p>
+  </label>
+  <label for="description">
+    <p>description : <input type="text" id="description" name="description" th:value="${study.description}"></p>
+  </label>
+  <label for="dueDt">
+    <p>dueDt : <input type="text" id="dueDt" name="dueDt" th:value="${study.dueDt}"></p>
+  </label>
+  <label for="numPeople">
+    <p>참여인원 : <input type="text" id="numPeople" name="numPeople" th:value="${study.numPeople}"></p>
+  </label>
+  <input type="submit" value="수정하기">
+</form>
+</body>
+</html>
