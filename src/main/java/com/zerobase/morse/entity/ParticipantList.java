@@ -7,7 +7,7 @@ public class ParticipantList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int applyNo;
+    private Long applyNo;
     private int studyNo;
     private String email;
     private String applyStatus;

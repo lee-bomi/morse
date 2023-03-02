@@ -13,12 +13,12 @@ INSERT INTO member
         now(), true,'a', false, 0, 'google');
 
 INSERT INTO study
-    (study_no, email, title, purpose,
+    (study_no, email, title, category, sub_category, keyword,
      description, status, cancel_status, write_dt,
-     edit_dt, due_dt, applicant_nums, num_people, category)
-    VALUES (1, 'kim@naver.com', '토익공부할 사람', '토익',
+     edit_dt, due_dt, applicant_nums, num_people)
+    VALUES (1, 'kim@naver.com', '토익공부할 사람', '취업', '토익', 'LC',
         '토익 900점 이상 (생략)', false, false, now(),
-        now(), date_add(now(), interval 10 day), 3, 10, '외국어');
+        now(), date_add(now(), interval 10 day), 3, 10);
 
 
 INSERT INTO keyword

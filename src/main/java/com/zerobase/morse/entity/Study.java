@@ -7,7 +7,7 @@ import java.util.List;
 public class Study {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int studyNo;
+    private Long studyNo;
     private String email;
     private String title;
     private String purpose;

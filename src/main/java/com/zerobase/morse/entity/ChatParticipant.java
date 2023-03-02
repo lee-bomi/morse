@@ -7,7 +7,7 @@ public class ChatParticipant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int participantNo;
+    private Long participantNo;
     private int roomId;
     private String email;
     private LocalDateTime participantDt;
