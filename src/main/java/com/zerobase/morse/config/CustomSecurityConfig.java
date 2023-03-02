@@ -1,3 +1,4 @@
+/*
 package com.zerobase.morse.config;
 
 import com.zerobase.morse.security.CustomUserDetailService;
@@ -61,6 +62,9 @@ public class CustomSecurityConfig {
 
     log.info("---------------- Ignoring staticResource from security------------- ");
 
+
     return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
   }
 }
+
+ */
