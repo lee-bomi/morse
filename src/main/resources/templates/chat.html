@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <h1>채팅방 페이지입니다.</h1>
+  <table>
+    <thead>
+      <tr>
+        <th th:text="${contents.roomId}"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="content : ${contents.contents}">
+        <td th:text="${content.member.email}"></td>
+        <td th:text="${content.content}"></td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <form method="post" id="saveForm">
+      <input type="hidden" id="roomNum" name="roomNum" th:value="${contents.roomId}"/>
+      <input type="text" id="chatContent" name="chatContent" placeholder="내용 입력"/>
+      <button type="submit">보내기</button>
+    </form>
+  </div>
+  <div th:if="${#authentication.principal.username == contents.getWriter()}">
+    <form id="yesForm" action="permit">
+      <button>수락</button>
+    </form>
+    <form id="noForm" action="deny">
+      <button>거절</button>
+    </form>
+  </div>
+
+
+  <script>
+
+    $(function(){
+      $('#saveForm').submit(function(e){
+        e.preventDefault();
+
+        var msg = {
+          'roomNum' : $('#roomNum').val(),
+          'chatContent' : $('#chatContent').val()
+        };
+        const roomId = $('#roomNum').val();
+        const url = '/chat/'+roomId;
+
+        $.ajax({
+          type : 'post',
+          url : '/chat',
+          data : JSON.stringify(msg),
+          contentType : 'application/json;charset=utf-8',
+          dataType : 'json',
+          success : function(res){
+           if(res===true){
+             location.href=url;
+           } else{
+             alert("메시지 전송에 실패했습니다.");
+           }
+          }
+        });
+
+      })
+    })
+
+  </script>
+
+</body>
+</html>
