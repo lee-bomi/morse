@@ -10,7 +10,10 @@ public class Study {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int studyNo;
-    //private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "email")
+    private Member member;
     private String title;
     private String purpose;
     private String description;
@@ -23,16 +26,10 @@ public class Study {
     private int numPeople;
     private String category;
 
-    //@ManyToOne
-    //private ChatRoom chatRoom;
-
     @OneToMany(mappedBy = "study")
     private List<Keyword> keyword;
 
-    @OneToMany(mappedBy = "chatRoom")
-    private List<ApplicantList> participantList;
+    //@OneToMany(mappedBy = "chatRoom")
+    //private List<ApplicantList> participantList;
 
-    @ManyToOne
-    @JoinColumn(name = "email")
-    private Member member;
 }

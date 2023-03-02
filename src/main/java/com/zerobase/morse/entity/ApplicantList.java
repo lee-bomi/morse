@@ -16,7 +16,7 @@ public class ApplicantList {
     private int applyNo;
 
     @ManyToOne
-    @JoinColumn(name = "stduyNo")
+    @JoinColumn(name = "studyNo")
     private Study studyNo;
 
     private String applyStatus;
@@ -26,8 +26,8 @@ public class ApplicantList {
     @JoinColumn(name = "email")
     private Member member;
 
-    @ManyToOne
-    private ChatRoom chatRoom;
-
+    //@ManyToOne
+    //@JoinColumn(name = "roomId")
+    //private ChatRoom chatRoom;
 
 }
