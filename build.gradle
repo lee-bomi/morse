@@ -22,6 +22,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' //타임리프
 //    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'       //타임리프의 layout을 적용하기위함
     implementation 'org.springframework.boot:spring-boot-starter-validation'    //자바 유효성검사
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'      //html에서 spring-security 적용
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 //    runtimeOnly 'com.mysql:mysql-connector-j'
     compileOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor 'org.projectlombok:lombok'
