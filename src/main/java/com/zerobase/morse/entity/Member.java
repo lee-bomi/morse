@@ -38,7 +38,7 @@ public class Member implements UserDetails {
     private List<ChatParticipant> chatParticipant;
 
     @OneToMany(mappedBy = "member")
-    private List<ParticipantList> participantLists;
+    private List<ApplicantList> participantLists;
 
     @OneToMany(mappedBy = "member")
     private List<ChatContent> chatContents;
