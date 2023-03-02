@@ -32,14 +32,7 @@ public class ChatController {
   private final StudyService studyService;
   private final TokenProvider tokenProvider;
 
-  /**
-   * 스터디 리스트를 볼 수 있는 임시용 페이지입니다.
-   * @return 스터디리스트 페이지
-   */
-  @GetMapping("/studylist")
-  public String studyList(){
-    return "studylist";
-  }
+
 
   /**
    * 스터디리스트 페이지에서 상담 버튼을 누르면 열리는 상담방 메소드입니다.
@@ -59,11 +52,12 @@ public class ChatController {
     Member member = this.memberService.getMember(email);
     Study study = this.studyService.getStudy(studyNo);
 
-    //신청 리스트에 넣기
-    this.applicantListService.addApplicant(member,study);
-
     //상담방 만들기
     InquiryRoomResponse inquiryRoomResponse = this.chatService.makeInquiryChat(email,study);
+
+    //신청 리스트에 넣기
+    this.applicantListService.addApplicant(member,study,inquiryRoomResponse.getRoomId());
+
 
     if(!inquiryRoomResponse.isResult()){
       return "redirect:/studylist";
@@ -105,4 +99,6 @@ public class ChatController {
 
     return true;
   }
+
+
 }
