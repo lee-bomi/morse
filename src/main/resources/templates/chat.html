@@ -28,10 +28,10 @@
     </form>
   </div>
   <div th:if="${#authentication.principal.username == contents.getWriter()}">
-    <form id="yesForm" action="permit">
+    <form method="post" id="yesForm" action="permit">
       <button>수락</button>
     </form>
-    <form id="noForm" action="deny">
+    <form method="post" id="noForm" action="deny">
       <button>거절</button>
     </form>
   </div>
