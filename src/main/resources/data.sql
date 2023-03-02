@@ -26,15 +26,17 @@ INSERT INTO keyword
     VALUES
     (1, 1, '외국어', '영어', '토익');
 
-INSERT INTO applicant_list
-    (apply_no, study_no, email, apply_status, apply_dt)
-    VALUES
-    (1, 1, 'park@naver.com', '신청중', now());
-
 INSERT INTO chat_room
-    (room_id, study_no,room_type)
+    (room_id, study_no, room_type)
     VALUES
     (1, 1,'inquiry');
+
+INSERT INTO applicant_list
+    (apply_no, study_no, email, room_id, apply_status, apply_dt)
+    VALUES
+    (1, 1, 'park@naver.com', 1, '신청중', now());
+
+
 
 INSERT INTO chat_participant
     (participant_no, room_id, email, participant_dt, chat_status)

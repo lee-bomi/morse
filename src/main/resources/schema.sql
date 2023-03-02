@@ -46,6 +46,7 @@ CREATE TABLE `applicant_list` (
                                   `apply_no`     INT          NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '신청번호', -- 신청번호
                                   `study_no`     INT          NOT NULL COMMENT '스터디번호', -- 스터디번호
                                   `email`        VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
+                                  `room_id`      INT          NOT NULL COMMENT '방번호', -- 상담방번호
                                   `apply_status` VARCHAR(30)  NOT NULL COMMENT '신청상태', -- 신청상태
                                   `apply_dt`     DATETIME     NOT NULL COMMENT '신청일' -- 신청일
 )
@@ -141,6 +142,16 @@ ALTER TABLE `applicant_list`
             )
             REFERENCES `study` ( -- 스터디모임
                                 `study_no` -- 스터디번호
+                );
+
+-- 신청자명단
+ALTER TABLE `applicant_list`
+    ADD CONSTRAINT `FK_chat_room_TO_applicant_list` -- 채팅방 -> 신청자명단
+        FOREIGN KEY (
+                    `room_id` -- 방번호
+            )
+            REFERENCES `chat_room` ( -- 채팅방
+                                   `room_id` -- 방번호
                 );
 
 -- 키워드
