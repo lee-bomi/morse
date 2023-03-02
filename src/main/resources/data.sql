@@ -32,9 +32,9 @@ INSERT INTO applicant_list
     (1, 1, 'park@naver.com', '신청중', now());
 
 INSERT INTO chat_room
-    (room_id, study_no)
+    (room_id, study_no,room_type)
     VALUES
-    (1, 1);
+    (1, 1,'inquiry');
 
 INSERT INTO chat_participant
     (participant_no, room_id, email, participant_dt, chat_status)
