@@ -1,5 +1,6 @@
 package com.zerobase.morse.controller;
 
+import com.zerobase.morse.component.PasswordEncoderComponent;
 import com.zerobase.morse.entity.Study;
 import com.zerobase.morse.model.StudyInput;
 import com.zerobase.morse.model.StudyUpdate;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +25,7 @@ public class StudyController {
 
 	private final StudyService studyService;
 
+	private final PasswordEncoder passwordEncoder;
 	@PostMapping("/member/study/add")
 	public ResponseEntity<?> registerStudy(StudyInput studyInput) throws ParseException {
 		Study study = studyService.saveStudy(studyInput);
@@ -31,14 +34,21 @@ public class StudyController {
 
 	@GetMapping("/study")
 	public String studyAddPage() {
+
+		System.out.println("11111 -> "+passwordEncoder.encode("11111"));
+		System.out.println("22222 -> "+passwordEncoder.encode("22222"));
+
 		return "/study";
 	}
 
 	//전체스터디리스트(권한없어도 누구나 확인가능)
 	@GetMapping("/studylist")
-	public ResponseEntity<?> studyList() {
+	public String studyList(Model model) {
 		List<Study> studies = studyService.getAllStudy();
-		return ResponseEntity.ok().body(studies);
+
+		model.addAttribute("studies",studies);
+
+		return "/studylist";
 	}
 
 	//특정 게시글 수정페이지 랜딩요청

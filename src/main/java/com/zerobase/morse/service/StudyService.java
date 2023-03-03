@@ -56,7 +56,7 @@ public class StudyService {
 		Date date = sdf.parse(s.getDueDt());
 
 		Study study = studyRepository.save(Study.builder()
-			.email(member.getEmail())
+			.email(member)
 			.title(s.getTitle())
 			.category(s.getCategory())
 			.subCategory(s.getSubCategory())

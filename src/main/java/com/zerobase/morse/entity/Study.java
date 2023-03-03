@@ -21,7 +21,10 @@ public class Study {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studyNo;
-    private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "email")
+    private Member email;
     private String title;
     private String category;
     private String subCategory;
@@ -45,7 +48,4 @@ public class Study {
 //    @OneToMany(mappedBy = "applyNo")
 //    private List<ParticipantList> participantList;
 //
-//    @ManyToOne
-//    private Member member;
-
 }

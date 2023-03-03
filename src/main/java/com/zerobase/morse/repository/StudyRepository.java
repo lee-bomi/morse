@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface StudyRepository extends JpaRepository<Study, Long> {
 
 	Member findByEmail(String email);
+	Study getStudyByStudyNo(Long studyNo);
 }

@@ -7,25 +7,26 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Builder
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
 public class ChatRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roomId;
+    private int roomId;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    private Study study;
+    @ManyToOne
+    @JoinColumn(name = "studyNo")
+    private Study studyNo;
+
+    private String roomType;
+
     @OneToMany(mappedBy = "chatRoom")
     private List<ChatParticipant> chatParticipant;
 
-    @ManyToOne
-    private ChatContent chatContent;
-
     @OneToMany(mappedBy = "chatRoom")
-    private List<ParticipantList> participantList;
+    private List<ApplicantList> participantList;
 }

@@ -24,7 +24,7 @@ CREATE TABLE `member` (
 -- 스터디모임
 DROP TABLE IF EXISTS `study`;
 CREATE TABLE `study` (
-                         `study_no`       INT          NOT NULL PRIMARY KEY auto_increment COMMENT '스터디번호', -- 스터디번호
+                         `study_no`       INT          NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '스터디번호', -- 스터디번호
                          `email`          VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
                          `title`          VARCHAR(150) NOT NULL COMMENT '타이틀', -- 타이틀
                          `category`       VARCHAR(30)  NOT NULL COMMENT '대분류', -- 대분류
@@ -44,9 +44,10 @@ CREATE TABLE `study` (
 -- 신청자명단
 DROP TABLE IF EXISTS `applicant_list`;
 CREATE TABLE `applicant_list` (
-                                  `apply_no`     INT          NOT NULL PRIMARY KEY COMMENT '신청번호', -- 신청번호
+                                  `apply_no`     INT          NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '신청번호', -- 신청번호
                                   `study_no`     INT          NOT NULL COMMENT '스터디번호', -- 스터디번호
                                   `email`        VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
+                                  `room_id`      INT          NOT NULL COMMENT '방번호', -- 상담방번호
                                   `apply_status` VARCHAR(30)  NOT NULL COMMENT '신청상태', -- 신청상태
                                   `apply_dt`     DATETIME     NOT NULL COMMENT '신청일' -- 신청일
 )
@@ -57,7 +58,7 @@ CREATE TABLE `applicant_list` (
 -- 키워드
 DROP TABLE IF EXISTS `keyword`;
 CREATE TABLE `keyword` (
-                           `keyword_no`   INT         NOT NULL PRIMARY KEY COMMENT '키워드번호', -- 키워드번호
+                           `keyword_no`   INT         NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '키워드번호', -- 키워드번호
                            `study_no`     INT         NOT NULL COMMENT '스터디번호', -- 스터디번호
                            `category`     VARCHAR(50) NOT NULL COMMENT '대분류', -- 대분류
                            `sub_category` VARCHAR(50) NOT NULL COMMENT '중분류', -- 중분류
@@ -69,7 +70,7 @@ CREATE TABLE `keyword` (
 -- 채팅_참가자
 DROP TABLE IF EXISTS `chat_participant`;
 CREATE TABLE `chat_participant` (
-                                    `participant_no` INT          NOT NULL PRIMARY KEY COMMENT '참여번호', -- 참여번호
+                                    `participant_no` INT          NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '참여번호', -- 참여번호
                                     `room_id`        INT          NOT NULL COMMENT '방번호', -- 방번호
                                     `email`          VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
                                     `participant_dt` DATETIME     NOT NULL COMMENT '참가일', -- 참가일
@@ -81,8 +82,9 @@ CREATE TABLE `chat_participant` (
 -- 채팅방
 DROP TABLE IF EXISTS `chat_room`;
 CREATE TABLE `chat_room` (
-                             `room_id`  INT NOT NULL PRIMARY KEY COMMENT '방번호', -- 방번호
-                             `study_no` INT NOT NULL COMMENT '스터디번호' -- 스터디번호
+                             `room_id`  INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '방번호', -- 방번호
+                             `study_no` INT NOT NULL COMMENT '스터디번호', -- 스터디번호
+                             `room_type` VARCHAR(30) NOT NULL COMMENT '방종류' -- 방종류
 )
     COMMENT '채팅방';
 
@@ -90,7 +92,7 @@ CREATE TABLE `chat_room` (
 -- 채팅내역
 DROP TABLE IF EXISTS `chat_content`;
 CREATE TABLE `chat_content` (
-                                `chat_no`  INT          NOT NULL PRIMARY KEY COMMENT '채팅번호', -- 채팅번호
+                                `chat_no`  INT          NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '채팅번호', -- 채팅번호
                                 `room_id`  INT          NOT NULL COMMENT '방번호', -- 방번호
                                 `email`    VARCHAR(100) NOT NULL COMMENT '이메일', -- 이메일
                                 `content`  VARCHAR(255) NOT NULL COMMENT '내용', -- 내용
@@ -141,6 +143,16 @@ ALTER TABLE `applicant_list`
             )
             REFERENCES `study` ( -- 스터디모임
                                 `study_no` -- 스터디번호
+                );
+
+-- 신청자명단
+ALTER TABLE `applicant_list`
+    ADD CONSTRAINT `FK_chat_room_TO_applicant_list` -- 채팅방 -> 신청자명단
+        FOREIGN KEY (
+                    `room_id` -- 방번호
+            )
+            REFERENCES `chat_room` ( -- 채팅방
+                                   `room_id` -- 방번호
                 );
 
 -- 키워드

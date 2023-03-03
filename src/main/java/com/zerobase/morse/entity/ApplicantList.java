@@ -3,28 +3,34 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class ChatParticipant {
+public class ApplicantList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long participantNo;
+    private int applyNo;
 
     @ManyToOne
-    @JoinColumn(name = "roomId")
-    private ChatRoom chatRoom;
+    @JoinColumn(name = "studyNo")
+    private Study studyNo;
 
     @ManyToOne
     @JoinColumn(name = "email")
     private Member member;
 
-    private LocalDateTime participantDt;
+    @ManyToOne
+    @JoinColumn(name = "roomId")
+    private ChatRoom chatRoom;
 
-    private boolean chatStatus;
+    private String applyStatus;
+    private LocalDateTime applyDt;
 
 }

@@ -139,7 +139,7 @@ public class MemberService implements UserDetailsService {
   public LoginResponse login(LoginInput parameter) {
     Member member = this.memberRepository.getById(parameter.getUsername());
     if (ObjectUtils.isEmpty(member) || !this.passwordEncoder.matches(parameter.getPassword(),
-        "$2a$10$HpPHhzop7HjJVW9dYHncwuklRTc7AP.b1f.Rqz14lnim68uwqk0fm")) {
+        member.getPassword())) {
       return LoginResponse.builder()
           .message("아이디 또는 비밀번호가 일치하지 않습니다.")
           .result(false)
@@ -158,6 +158,10 @@ public class MemberService implements UserDetailsService {
                       .accessToken(token)
                       .build()
     );
+  }
+
+  public Member getMember(String email){
+    return this.memberRepository.getById(email);
   }
 
   @Override
@@ -182,7 +186,7 @@ public class MemberService implements UserDetailsService {
     //String password = passwordEncoder.encode(member.getPassword()); 로 써야함.
     //12345로 적어야 됨.
     return new User(member.getEmail(),
-        "$2a$10$HpPHhzop7HjJVW9dYHncwuklRTc7AP.b1f.Rqz14lnim68uwqk0fm", member.getAuthorities());
+        member.getPassword(), member.getAuthorities());
   }
 
 }

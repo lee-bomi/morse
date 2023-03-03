@@ -20,6 +20,7 @@ dependencies {
     implementation 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' //타임리프
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' //타임리프 security
 //    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'       //타임리프의 layout을 적용하기위함
     implementation 'org.springframework.boot:spring-boot-starter-validation'    //자바 유효성검사
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version:'0.9.1'

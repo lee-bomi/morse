@@ -8,6 +8,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
+import java.util.Optional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -57,10 +58,18 @@ public class TokenProvider {
   }
 
   private void saveRefreshToken(String username, String refreshToken) {
-    JwtToken jwtToken = this.jwtTokenRepository.findByEmail(username);
-    jwtToken.setRefreshToken(refreshToken);
-    jwtToken = jwtTokenRepository.save(jwtToken);
-    System.out.println(jwtToken.getRefreshToken());
+    Optional<JwtToken> optionalJwtToken = this.jwtTokenRepository.findById(username);
+    if(optionalJwtToken.isPresent()){
+      JwtToken jwtToken = optionalJwtToken.get();
+      jwtToken.setRefreshToken(refreshToken);
+      this.jwtTokenRepository.save(jwtToken);
+    }
+
+    this.jwtTokenRepository.save(JwtToken.builder()
+                                          .email(username)
+                                          .refreshToken(refreshToken)
+                                          .build());
+
   }
 
   /**
