@@ -13,17 +13,18 @@ public class ChatParticipant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int participantNo;
+    private Long participantNo;
 
-    private LocalDateTime participantDt;
-
-    private boolean chatStatus;
+    @ManyToOne
+    @JoinColumn(name = "roomId")
+    private ChatRoom chatRoom;
 
     @ManyToOne
     @JoinColumn(name = "email")
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "roomId")
-    private ChatRoom chatRoom;
+    private LocalDateTime participantDt;
+
+    private boolean chatStatus;
+
 }

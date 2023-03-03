@@ -42,7 +42,9 @@ public class ChatController {
    */
 
   @PostMapping("/inquiry")
-  public String makeInquiryChat(HttpServletRequest request,int studyNo){
+  public @ResponseBody InquiryRoomResponse makeInquiryChat(HttpServletRequest request, @RequestBody  Long studyNo){
+
+    System.out.println(studyNo);
 
     //유저 정보 가져오기
     String token = this.tokenProvider.getTokenFromCookies(request, "access_token");
@@ -50,20 +52,16 @@ public class ChatController {
 
     // Member, Stduy객체 가져오기
     Member member = this.memberService.getMember(email);
-    Study study = this.studyService.getStudy(studyNo);
+    Study study = this.studyService.getStudy(studyNo).get();
 
     //상담방 만들기
-    InquiryRoomResponse inquiryRoomResponse = this.chatService.makeInquiryChat(email,study);
+    InquiryRoomResponse inquiryRoomResponse = this.chatService.makeInquiryChat(member,study);
 
     //신청 리스트에 넣기
     this.applicantListService.addApplicant(member,study,inquiryRoomResponse.getRoomId());
 
 
-    if(!inquiryRoomResponse.isResult()){
-      return "redirect:/studylist";
-    }
-
-    return "redirect:/chat/"+inquiryRoomResponse.getRoomId();
+    return inquiryRoomResponse;
   }
 
   /**

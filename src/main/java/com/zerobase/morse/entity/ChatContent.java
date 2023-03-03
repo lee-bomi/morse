@@ -18,20 +18,21 @@ public class ChatContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int chatNo;
-    //private int roomId;
-    //private String email;
-    private String content;
-    private LocalDateTime writeDt;
-
-    @ManyToOne
-    @JoinColumn(name = "email")
-    private Member member;
-
-    //@OneToMany(mappedBy = "chatContent")
-    //private List<ChatRoom> chatRoom;
+    private Long chatNo;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
     private ChatRoom chatRoom;
+
+    @ManyToOne
+    @JoinColumn(name = "email")
+    private Member member;
+    private String content;
+    private LocalDateTime writeDt;
+
+
+
+    //@OneToMany(mappedBy = "chatContent")
+    //private List<ChatRoom> chatRoom;
+
 }

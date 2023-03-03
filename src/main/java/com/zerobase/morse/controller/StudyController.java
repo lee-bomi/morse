@@ -1,6 +1,6 @@
 package com.zerobase.morse.controller;
 
-<<<<<<< HEAD
+import com.zerobase.morse.component.PasswordEncoderComponent;
 import com.zerobase.morse.entity.Study;
 import com.zerobase.morse.model.StudyInput;
 import com.zerobase.morse.model.StudyUpdate;
@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +25,7 @@ public class StudyController {
 
 	private final StudyService studyService;
 
+	private final PasswordEncoder passwordEncoder;
 	@PostMapping("/member/study/add")
 	public ResponseEntity<?> registerStudy(StudyInput studyInput) throws ParseException {
 		Study study = studyService.saveStudy(studyInput);
@@ -32,14 +34,21 @@ public class StudyController {
 
 	@GetMapping("/study")
 	public String studyAddPage() {
+
+		System.out.println("11111 -> "+passwordEncoder.encode("11111"));
+		System.out.println("22222 -> "+passwordEncoder.encode("22222"));
+
 		return "/study";
 	}
 
 	//전체스터디리스트(권한없어도 누구나 확인가능)
 	@GetMapping("/studylist")
-	public ResponseEntity<?> studyList() {
+	public String studyList(Model model) {
 		List<Study> studies = studyService.getAllStudy();
-		return ResponseEntity.ok().body(studies);
+
+		model.addAttribute("studies",studies);
+
+		return "/studylist";
 	}
 
 	//특정 게시글 수정페이지 랜딩요청
@@ -78,24 +87,4 @@ public class StudyController {
 		studyService.deleteStudy(id);
 		return ResponseEntity.ok().build();
 	}
-=======
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-@RequiredArgsConstructor
-@Controller
-public class StudyController {
-
-  /**
-   * 스터디 리스트를 볼 수 있는 임시용 페이지입니다.
-   * @return 스터디리스트 페이지
-   */
-  @GetMapping("/studylist")
-  public String studyList(){
-    return "studylist";
-  }
-
-
->>>>>>> 6f90c5b (Feat: ApplicantListController, StudyController 추가)
 }

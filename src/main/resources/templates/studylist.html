@@ -6,11 +6,60 @@
   <title>Title</title>
 </head>
 <body>
-  <form method="post"action="/inquiry">
-    <input type="hidden" name="studyNo" value="1"/>
-    <button>상담</button>
-  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>Purpose</th>
+        <th>Detail</th>
+        <th>Title</th>
+        <th>인원</th>
+        <th>Due date</th>
+        <th>Registered</th>
+        <th> - </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="study : ${studies}">
+        <td th:text="${study.getCategory()}"></td>
+        <td th:text="${study.getSubCategory()}"></td>
+        <td th:text="${study.getTitle()}"></td>
+        <td>
+          <span th:text="${study.getApplicantNums()}"></span>
+          /
+          <span th:text="${study.getNumPeople()}"></span>
+        </td>
+        <td th:text="${study.getDueDt()}"></td>
+        <td th:text="${study.getWriteDt()}"></td>
+        <td>
+          <button class="inquiry-btn" th:value="${study.getStudyNo()}">
+            스터디상담
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <script>
+    $('.inquiry-btn:button').on('click',function(){
+
+      var stduyNo = $('.inquiry-btn:button').val();
+
+      $.ajax({
+        type : "post",
+        url : "/inquiry",
+        data : JSON.stringify(stduyNo),
+        contentType : 'application/json;charset=utf-8',
+        dataType : 'json',
+        success : function(res){
+          if(res.result ===true){
+            const url = '/chat/'+res.roomId;
+
+            location.href=url;
+          }else{
+            alert(res.resultMessage);
+          }
+        }
+      })
+    })
   </script>
 </body>
 </html>
