@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Study {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studyNo;
+    private int studyNo;
 
     @ManyToOne
     @JoinColumn(name = "email")

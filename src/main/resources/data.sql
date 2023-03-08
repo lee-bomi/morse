@@ -2,7 +2,7 @@ INSERT INTO member
     (email, password, name, nickname,
      gender, birth, address, phone,
      reg_dt, email_yn,email_auth_key, status, report_count, sns_login)
-    VALUES ('kim@naver.com', '"$2a$10$HpPHhzop7HjJVW9dYHncwuklRTc7AP.b1f.Rqz14lnim68uwqk0fm"', '김모스', '김나방',
+    VALUES ('kim@naver.com', '$2a$10$HpPHhzop7HjJVW9dYHncwuklRTc7AP.b1f.Rqz14lnim68uwqk0fm', '김모스', '김나방',
         '남', '1995-01-23', '서울 청와대', '010-1234-5678',
         now(), true,'a', false, 0, 'email'), -- password : 12345
            ('lee@naver.com', '$2a$10$n4k0MT4Okd.ld6SY1kzzAuB7XHHqx6jTE/jstyUOEb1luafXgng1y', '김스모', '김씨름',

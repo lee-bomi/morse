@@ -160,8 +160,8 @@ public class MemberService implements UserDetailsService {
     );
   }
 
-  public Member getMember(String email){
-    return this.memberRepository.getById(email);
+  public Optional<Member> getMember(String email){
+    return this.memberRepository.findById(email);
   }
 
   @Override

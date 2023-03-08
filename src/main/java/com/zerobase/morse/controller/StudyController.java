@@ -53,7 +53,7 @@ public class StudyController {
 
 	//특정 게시글 수정페이지 랜딩요청
 	@GetMapping("/studylist/{id}")
-	public String updateStudyPage(@PathVariable Long id, Model model) {
+	public String updateStudyPage(@PathVariable int id, Model model) {
 		Study study = studyService.getStudy(id).orElseThrow(
 			() -> new RuntimeException("해당 게시물이 없습니다"));
 		model.addAttribute("study", study);
@@ -83,7 +83,7 @@ public class StudyController {
 
 	//게시글 삭제
 	@DeleteMapping("/studyList/{id}")
-	public ResponseEntity<?> deleteStudy(@PathVariable Long id) {
+	public ResponseEntity<?> deleteStudy(@PathVariable int id) {
 		studyService.deleteStudy(id);
 		return ResponseEntity.ok().build();
 	}
