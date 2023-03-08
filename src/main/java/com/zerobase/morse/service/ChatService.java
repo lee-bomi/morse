@@ -36,6 +36,20 @@ public class ChatService {
 
   public InquiryRoomResponse makeInquiryChat(Member applicant, Study studyNo) {
 
+    //작성자 가져오기
+    Optional<Study> optionalStudy = this.studyRepository.findById(studyNo.getStudyNo());
+    if(optionalStudy.isEmpty()){
+      //해당 스터디가 없다면
+    }
+
+    Member writer = optionalStudy.get().getEmail();
+
+
+    //chatParticipant에 참가자와 작성자 추가, 참가자와 작성자가 같을 경우는 안 됨.
+    if(applicant.getEmail().equals(writer.getEmail())){
+      return new InquiryRoomResponse(-1,"you are owner",false);
+    }
+
     //상담방이 이미 존재하는지 체크
     Optional<ApplicantList> optionalApplicantList =this.applicantListRepository.findByMemberAndStudyNo(applicant,studyNo);
 
@@ -51,18 +65,7 @@ public class ChatService {
                                                 .roomType(RoomType.INQUIRY_ROOM.getMessage())
                                                 .build());
 
-    //작성자 가져오기
-    Optional<Study> optionalStudy = this.studyRepository.findById(studyNo.getStudyNo());
-    if(optionalStudy.isEmpty()){
-      //해당 스터디가 없다면
-    }
-    Member writer = optionalStudy.get().getEmail();
 
-
-    //chatParticipant에 참가자와 작성자 추가, 참가자와 작성자가 같을 경우는 안 됨.
-    if(applicant.getEmail().equals(writer)){
-      return new InquiryRoomResponse(-1,"you are owner",false);
-    }
 
     //채팅 참가자 테이블에 작성자와 신청자 추가
     this.addParticipant(chatRoom, applicant);
