@@ -72,10 +72,10 @@ public class MemberController {
     return loginResponse;
   }
 
+
   @PostMapping("/logout")
   public String logout(HttpServletRequest request){
 
-    //SecurityContextHolder.clearContext();
     String accessToken = this.tokenProvider.getTokenFromCookies(request,"access_token");
     this.memberService.logout(accessToken);
 

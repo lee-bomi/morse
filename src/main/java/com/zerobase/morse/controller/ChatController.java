@@ -42,30 +42,32 @@ public class ChatController {
    */
 
   @PostMapping("/inquiry")
-  public @ResponseBody InquiryRoomResponse makeInquiryChat(HttpServletRequest request, @RequestBody  Long studyNo){
-
-    System.out.println(studyNo);
+  @ResponseBody
+  public InquiryRoomResponse makeInquiryChat(HttpServletRequest request, @RequestBody  int studyNo){
 
     //유저 정보 가져오기
     String token = this.tokenProvider.getTokenFromCookies(request, "access_token");
     String email = this.tokenProvider.getUsername(token);
 
     // Member, Stduy객체 가져오기
-    Member member = this.memberService.getMember(email);
+    Member member = this.memberService.getMember(email).get();
     Study study = this.studyService.getStudy(studyNo).get();
 
     //상담방 만들기
     InquiryRoomResponse inquiryRoomResponse = this.chatService.makeInquiryChat(member,study);
 
     //신청 리스트에 넣기
-    this.applicantListService.addApplicant(member,study,inquiryRoomResponse.getRoomId());
-
+    if(inquiryRoomResponse.isResult()) {
+      this.applicantListService.addApplicant(member, study, inquiryRoomResponse.getRoomId());
+    }
 
     return inquiryRoomResponse;
   }
 
+
+
   /**
-   * 호출하면 채팅방의 내역을 보여주는 메소드입니다.
+   * 호출하면 상담 채팅방 또는 스터디 채팅방의 내역을 보여주는 메소드입니다.
    * @param model 뷰에 채팅내역을 전달하기위해 사용됩니다.
    * @param chatRoomId 채팅방 번호를 전달해 해당 채팅방 대화내역을 가져오기위해 사용됩니다.
    * @return 해당 채팅방의 대화내역이 나온 페이지를 리턴합니다.

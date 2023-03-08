@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 public class StudyUpdate {
 
-	Long studyNo;
+	int studyNo;
 	String title;
 	String category;	//대분류
 	String subCategory;	//중분류

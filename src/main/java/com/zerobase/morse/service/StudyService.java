@@ -41,7 +41,7 @@ public class StudyService {
 	/**
 	 * 특정 게시글 가져오기
 	 */
-	public Optional<Study> getStudy(Long id) {
+	public Optional<Study> getStudy(int id) {
 		return studyRepository.findById(id);
 	}
 
@@ -94,7 +94,7 @@ public class StudyService {
 	/**
 	 * 해당 스터디 공고 삭제
 	 */
-	public void deleteStudy(Long id) {
+	public void deleteStudy(int id) {
 		studyRepository.deleteById(id);
 	}
 }
